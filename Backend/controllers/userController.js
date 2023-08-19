@@ -1,27 +1,36 @@
 const User = require('../models/user');
 
+const bcrypt = require('bcrypt');
+
 
 
 // Create a user
 exports.createUser = async (req, res) => {
-  
-  const email=req.body.email;
-  const password=req.body.password;
+  const email = req.body.email;
+  const password = req.body.password;
 
- 
-  const existingUser = await User.findOne({ where: { email: email } });
-  const PasswordCheck = await User.findOne({ where: { password: password } });
-        if (existingUser) {
-          if(PasswordCheck){
-            const newUser = await User.create({email: email,password:password});
+  try {
+    const existingUser = await User.findOne({ where: { email: email } });
 
-    res.json(newUser);
-        }
-        else{
-          res.status(401).json({ error: 'User not authorized' });
-        }
+    if (existingUser) {
+      // Compare the provided password with the hashed password from the database
+      const passwordCheck = await bcrypt.compare(password, existingUser.password);
+
+      if (passwordCheck) {
+        res.status(409).json({ error: 'User already exists' });
+      } else {
+        res.status(401).json({ error: 'User not authorized' });
       }
-else{
-  res.status(404).json({ error: 'User not found' });
+    } else {
+      // Hash the password before storing it in the database
+
+      const hashedPassword = await bcrypt.hash(password, 15);
+      const newUser = await User.create({ email: email, password: hashedPassword });
+
+      res.json(newUser);
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Server Error' });
   }
 };
