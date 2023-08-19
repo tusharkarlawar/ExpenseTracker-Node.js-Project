@@ -14,4 +14,4 @@ const User = db.define('logindata', {
   }
 });
 
-module.exports = User;
+module.exports = User;//

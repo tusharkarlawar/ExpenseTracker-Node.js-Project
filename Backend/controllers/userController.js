@@ -9,18 +9,19 @@ exports.createUser = async (req, res) => {
   const password=req.body.password;
 
  
-  const existingUser = await User.findOne({ where: { email:email,password:password } });
+  const existingUser = await User.findOne({ where: { email: email } });
+  const PasswordCheck = await User.findOne({ where: { password: password } });
         if (existingUser) {
-            res.status(400).json({ error: 'Email already exists in the database' });
-        }
-else{
-  try { 
-
-    const newUser = await User.create({email:email,password:password});
+          if(PasswordCheck){
+            const newUser = await User.create({email: email,password:password});
 
     res.json(newUser);
-  } catch (error) {
-    res.status(500).json({ error: 'Server Error' });
+        }
+        else{
+          res.status(401).json({ error: 'User not authorized' });
+        }
+      }
+else{
+  res.status(404).json({ error: 'User not found' });
   }
-}
 };

@@ -21,11 +21,21 @@ homepage.addEventListener("submit", addingData = async function(event){
         }
 
         catch(error){
-            (console.log(error));
+            if(error.response.status==401){
+                await(console.log(error));
             const para = document.createElement("p");
-            const node = document.createTextNode("User not exists");
+            const node = document.createTextNode("User not authorized");
             para.appendChild(node);
             ul_outputList.appendChild(para);
+            }
+            else{
+                await(console.log(error));
+                const para = document.createElement("p");
+                const node = document.createTextNode("User not found");
+                para.appendChild(node);
+                ul_outputList.appendChild(para);
+                    
+            }
         }
     }
     postdata();
