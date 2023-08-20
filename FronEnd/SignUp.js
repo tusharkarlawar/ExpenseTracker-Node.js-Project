@@ -1,42 +1,48 @@
-var homepage = document.getElementById("signup-form");
-var ul_outputList = document.getElementById("ullist");
+var signuppage = document.getElementById("signupForm");
+var ul_outputList = document.getElementById("unSortedList_outputList");
 
-homepage.addEventListener("submit", addingData = async function(event){
+var signupButton = document.getElementById("signupButton")
+
+var signupLink = document.getElementById("signupLink");
+
+signupLink.addEventListener("click", function(event) {
+event.preventDefault();
+window.location.href = "login.html"; // Redirect to signup page
+});
+
+signuppage.addEventListener("submit", addingData = async function(event){
     event.preventDefault(); 
+    var Name = document.getElementById("Name").value;
+    var Email = document.getElementById("Email").value;
+    var Password = document.getElementById("Password").value;
   
-    var email = document.getElementById("email").value;
-    
-    var password = document.getElementById("password").value;
-
     let obj = {
-      
-      email: email,
-      password: password
+      Name: Name,
+      Email: Email,
+      Password: Password
     };
 
     async function postdata(){
         try{
-            const response = await axios.post(`http://localhost:3000/api/logindata/Login`,obj)
-            alert("logged in successfully");
-        }
+            const response = await axios.post(`http://localhost:3000/api/users/SignUp`,obj)
 
+            signupButton.addEventListener("click", function(event){
+                event.preventDefault();
+                alert("Account created");
+                window.location.href = "login.html";
+            });
+            
+        }
+        
         catch(error){
-            if(error.response.status==401){
-                await(console.log(error));
-            const para = document.createElement("p");
-            const node = document.createTextNode("User not authorized");
-            para.appendChild(node);
-            ul_outputList.appendChild(para);
-            }
-            else{
-                await(console.log(error));
-                const para = document.createElement("p");
-                const node = document.createTextNode("User not found");
-                para.appendChild(node);
-                ul_outputList.appendChild(para);
-                    
-            }
+            await(console.log(error));
+                    const para = document.createElement("p");
+                    const node = document.createTextNode("User already exists");
+                    para.appendChild(node);
+                    ul_outputList.appendChild(para);
         }
     }
     postdata();
 });
+
+
