@@ -1,7 +1,7 @@
 const jsonwebtoken = require('jsonwebtoken');
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');//
 
 exports.LoginUser = async (req, res) => {
     const Name = req.body.Name;

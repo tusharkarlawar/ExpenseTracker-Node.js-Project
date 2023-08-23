@@ -7,4 +7,4 @@ router.get('/', userAuthentication.authenticate, expenseController.getExpense);
 router.post('/', userAuthentication.authenticate, expenseController.createExpense);
 router.delete('/:id', userAuthentication.authenticate, expenseController.deleteExpense);
 
-module.exports = router;
+module.exports = router;//

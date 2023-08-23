@@ -1,6 +1,8 @@
 const Expense = require('../models/expense');
+const jwt = require('jsonwebtoken');
+const secretKey = 'tushartushar';
 
-// Get all expense
+// Get all expense//
 exports.getExpense = async (req, res) => {
   try {
     const expenses = await Expense.findAll(

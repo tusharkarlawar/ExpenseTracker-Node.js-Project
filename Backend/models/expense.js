@@ -16,4 +16,4 @@ const Expense = db.define('expenseData', {
   }
 });
 
-module.exports = Expense;
+module.exports = Expense;//

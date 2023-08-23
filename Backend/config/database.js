@@ -12,7 +12,7 @@ async function testConnection() {
   } catch (error) {
     console.error('Unable to connect to the database:', error);
   }
-}
+}//
 
 testConnection();
 
