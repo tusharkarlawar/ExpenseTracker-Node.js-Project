@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 exports.createUser = async (req, res) => {
   const Name = req.body.Name;
   const Email = req.body.Email;
+  const ConformEmail = req.body.ConformEmail;
   const Password = req.body.Password;
   const existingUser = await User.findOne({ where: { Email: Email } });
   if (existingUser) {
@@ -15,7 +16,7 @@ else{
     bcrypt.hash(Password,saltrounds,async(err,hash) => {
       console.log(err)
         
-    const newUser = await User.create({Name:Name,Email:Email,Password:hash});
+    const newUser = await User.create({Name:Name,Email:Email,ConformEmail:ConformEmail,Password:hash});
         
     res.json(newUser);
 })
@@ -23,24 +24,4 @@ else{
     res.status(500).json({ error: 'Server Error' });
   }
 };
-};
-
-exports.LoginUser = async (req, res) => {
-  const Name = req.body.Name;
-  const Password = req.body.Password;
-
-  const existingUser = await User.findOne({ where: { Name: Name } });
-        if (existingUser) {
-            bcrypt.compare(Password,existingUser.Password,(err,result)=>{
-            if(result == true){
-            res.json({ message: 'Logged in successfully', user: existingUser });
-        }
-        else{
-          res.status(401).json({ error: 'User not authorized' });
-        }
-      })
-      }
-else{
-  res.status(404).json({ error: 'User not found' });
-  }
 };

@@ -1,23 +1,18 @@
-const { Sequelize } = require('sequelize');
-const data = require('../config/database');
+const Sequelize=require('sequelize');
+const db = require("../config/database");
 
-const Expense = data.define('expenses', {
-  id: {
-    type: Sequelize.INTEGER,
-    autoIncrement: true,
-    primaryKey: true
-  },
-  expense_amount: {
-    type: Sequelize.DOUBLE,
-    allowNull: false
+const Expense = db.define('expenseData', {
+    expenseamount: {
+    type: Sequelize.STRING,
+    allowNull: false,
   },
   description: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   },
   category: {
     type: Sequelize.STRING,
-    allowNull: false
+    allowNull: false,
   }
 });
 

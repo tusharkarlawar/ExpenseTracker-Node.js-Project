@@ -1,42 +1,48 @@
 const Expense = require('../models/expense');
 
-// Get all users
+// Get all expense
 exports.getExpense = async (req, res) => {
   try {
-    const users = await Expense.findAll();
-    res.json(users);
+    const expenses = await Expense.findAll(
+      {
+      where: {UserId: req.user.id}}
+      )
+    res.json(expenses);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ error: 'Server Error' });
   }
 };
 
-// Create a user
+// Create a expense
 exports.createExpense = async (req, res) => {
-  const expense_amount = req.body.expense_amount;
+  // const id = req.body.id;
+  const expenseamount=req.body.expenseamount;
   const description=req.body.description;
   const category=req.body.category;
+  // const UserId=req.body.UserId;
 
   try {
-    const newUser = await Expense.create({ expense_amount:expense_amount, description:description, category:category });
-    res.json(newUser);
+    const newExpense = await Expense.create({expenseamount:expenseamount, description:description, category:category, UserId:req.user.id });
+    res.json(newExpense);
   } catch (error) {
-    console.log("error");
+    console.log("errooorr");
     res.status(500).json({ error: 'Server Error' });
   }
 };
 
-// Delete a user
 exports.deleteExpense = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const user = await Expense.findByPk(id);
-    if (!user) {
-      return res.status(404).json({ error: 'User not found' });
+    const expense = await Expense.findByPk(id);
+    if (!expense) {
+      return res.status(404).json({ error: 'expense not found' });
     }
 
-    await user.destroy();
-    res.json({ message: 'User deleted successfully' });
+    await expense.destroy({
+      where: {UserId: req.user.id}});
+    res.json({ message: 'Expense deleted successfully' });
   } catch (error) {
     res.status(500).json({ error: 'Server Error' });
   }
