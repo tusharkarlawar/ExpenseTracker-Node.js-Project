@@ -63,8 +63,7 @@ var ul_outputList = document.getElementById("unSortedList_outputList");
                   console.log("userleaderBoardArray.data:", userleaderBoardArray.data);
 
                   userleaderBoardArray.data.forEach((userDetails) =>{
-                    leaderboardElem.innerHTML += `<li>Name - ${userDetails.name} total Expense - ${userDetails.total_cost}</li>`;
-                    console.log("niha",userDetails.total_cost)
+                    leaderboardElem.innerHTML += `<li>Name - ${userDetails.Name} total Expense - ${userDetails.totalExpenses}</li>`;
                   })
                 }
                 document.getElementById("message").appendChild(inputElement);

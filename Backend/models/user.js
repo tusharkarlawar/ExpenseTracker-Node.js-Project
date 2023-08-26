@@ -23,6 +23,10 @@ const db = require("../config/database");//
     type: Sequelize.BOOLEAN,
     defaultValue: false, // Set default value to false for new users
   },
+  totalExpenses: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
+  }
 });
 
 module.exports = User;
