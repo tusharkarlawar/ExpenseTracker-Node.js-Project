@@ -44,5 +44,3 @@ signuppage.addEventListener("submit", addingData = async function(event){
 
 
 
-
-//

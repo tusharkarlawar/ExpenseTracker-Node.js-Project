@@ -5,8 +5,8 @@ const Order = require('../models/orders')
     exports.purchasepremium = async (req, res) => {
     try {
         var rzp = new Razorpay({
-            key_id: 'rzp_test_U4GoLgww0w8Ish',
-            key_secret: 'pOPWl4gPZFDz9mKlWz2Ct6j5'
+            key_id: 'rzp_test_917BBmPpLEQLkt',
+            key_secret: 'skCVAZpbfLhSkkAb4ocMydLl'
         });
         const amount = 2500;
 
@@ -15,7 +15,7 @@ const Order = require('../models/orders')
                 throw new Error(JSON.stringify(err));
             }
                 await req.user.createOrder({ orderid: order.id, status: 'PENDING' }).then(()=>{
-                return res.status(201).json({ order, key_id: 'rzp_test_U4GoLgww0w8Ish' });
+                return res.status(201).json({ order, key_id: 'rzp_test_917BBmPpLEQLkt' });
             }).catch(err => {
                 throw new Error(orderErr);
             })
@@ -34,7 +34,7 @@ exports.updateTransactionstatus = async(req,res) => {
         const promise2 = req.user.update({ispremiumuser: true})
 
         Promise.all([promise1,promise2]).then(()=>{
-            return res.status(202).json({sucess: true,message: "Transaction Successful"});
+        return res.status(202).json({sucess: true,message: "Transaction Successful"/* token: loginController.generateAccessToken(userId,undefined,true)*/});
         }).catch((error) => {
             throw new Error(console.error);
         })

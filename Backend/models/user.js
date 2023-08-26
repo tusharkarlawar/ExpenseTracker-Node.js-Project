@@ -18,7 +18,11 @@ const db = require("../config/database");//
   Password: {
     type: Sequelize.STRING,
     allowNull: false,
-  }
+  },
+  ispremiumuser: {
+    type: Sequelize.BOOLEAN,
+    defaultValue: false, // Set default value to false for new users
+  },
 });
 
 module.exports = User;

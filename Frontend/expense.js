@@ -35,7 +35,7 @@ var ul_outputList = document.getElementById("unSortedList_outputList");
               document.getElementById('rzp-button1').style.visibility="hidden"
                 document.getElementById('message').innerHTML= "you are a premium user"
             }
-
+               //decode the jwt token
             function parseJwt (token) {
                   var base64Url = token.split('.')[1];
                   var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -46,7 +46,32 @@ var ul_outputList = document.getElementById("unSortedList_outputList");
                   return JSON.parse(jsonPayload);
               }
 
-            document.addEventListener("DOMContentLoaded", async () => {
+              //showleaderboard
+              function showLeaderboard(){
+                const inputElement = document.createElement("input")
+                inputElement.type = "button"
+                inputElement.value = "Show Leaderboard"
+                inputElement.onclick = async() => {
+                  const token = localStorage.getItem('token')
+                  const userleaderBoardArray = await axios.get('http://localhost:3000/api/premium/showLeaderBoard'
+                  ,{headers: {"Authorization": token}})
+                  console.log(userleaderBoardArray)
+
+                  var leaderboardElem = document.getElementById('leaderboard')
+                  leaderboardElem.innerHTML += '<h1> Leader Board</h1>'
+                  
+                  console.log("userleaderBoardArray.data:", userleaderBoardArray.data);
+
+                  userleaderBoardArray.data.forEach((userDetails) =>{
+                    leaderboardElem.innerHTML += `<li>Name - ${userDetails.name} total Expense - ${userDetails.total_cost}</li>`;
+                    console.log("niha",userDetails.total_cost)
+                  })
+                }
+                document.getElementById("message").appendChild(inputElement);
+              }
+              
+
+            window.addEventListener("DOMContentLoaded", async () => {
             try {
               const token = localStorage.getItem('token')
               console.log(token);
@@ -55,6 +80,7 @@ var ul_outputList = document.getElementById("unSortedList_outputList");
                 const ispremiumuser = decodedToken.ispremiumuser
                 if(ispremiumuser){
                   showPremiumuserMessage()
+                  showLeaderboard();
                 }
                 const response = await axios.get(
                 "http://localhost:3000/api/expenseData"
@@ -132,9 +158,10 @@ var ul_outputList = document.getElementById("unSortedList_outputList");
                   },{headers: {"Authorization": token} })
 
                   alert('you are a premium user now') 
-                document.getElementById('rzp-button1').style.visibility="hidden"
-                document.getElementById('message').innerHTML= "you are a premium user"
-
+                document.getElementById('rzp-button1').style.visibility="hidden" //remove buy premium button
+                document.getElementById('message').innerHTML= "you are a premium user" //after removing button "you are a premium user" 
+                localStorage.setItem('token', res.data.token)
+                showLeaderboard();
               }, 
               
               };

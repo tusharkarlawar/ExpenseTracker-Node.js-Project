@@ -7,8 +7,8 @@ exports.LoginUser = async (req, res) => {
     const Name = req.body.Name;
     const Password = req.body.Password;
 
-    function generateAccessToken(id){
-      return jwt.sign({UserId:id},'tushartushar')
+    const generateAccessToken = (id, name, ispremiumuser) => {
+      return jwt.sign({UserId:id, name: name, ispremiumuser},'tushartushar')
     }
   
     const existingUser = await User.findOne({ where: { Name: Name } });
@@ -16,7 +16,9 @@ exports.LoginUser = async (req, res) => {
               bcrypt.compare(Password,existingUser.Password,(err,result)=>{
               if(result == true){
               // res.json({ message: 'Logged in successfully', user: existingUser });
-              res.json({ message: 'Logged in successfully', token: generateAccessToken(existingUser.id) });
+              //res.json({ message: 'Logged in successfully', token: generateAccessToken(existingUser.id) });
+              res.json({ message: 'Logged in successfully', token: generateAccessToken(existingUser.id, existingUser.name,existingUser.ispremiumuser) });
+
              }
              else{
                res.status(401).json({ error: 'User not authorized' });
