@@ -5,8 +5,8 @@ const Order = require('../models/orders')
     exports.purchasepremium = async (req, res) => {
     try {
         var rzp = new Razorpay({
-            key_id: 'rzp_test_2ylE3A6baca0nW',
-            key_secret: 'GnE764yK6AzmNi2YxWU3TLVt'
+            key_id: 'rzp_test_rexBxrFRSLdze5',
+            key_secret: 'XvKrbjv1P76LnlzdoFKqAnLf'
         });
         const amount = 2500;
 
@@ -15,7 +15,7 @@ const Order = require('../models/orders')
                 throw new Error(JSON.stringify(err));
             }
                 await req.user.createOrder({ orderid: order.id, status: 'PENDING' }).then(()=>{
-                return res.status(201).json({ order, key_id: 'rzp_test_2ylE3A6baca0nW' });
+                return res.status(201).json({ order, key_id: 'rzp_test_rexBxrFRSLdze5' });
             }).catch(err => {
                 throw new Error(orderErr);
             })
