@@ -142,7 +142,7 @@ window.addEventListener("DOMContentLoaded", async()=>{
     }
 })
 
-// pagination for the expenses
+// pagination for the expenses//
 async function pagination(){
     try{
         const token = localStorage.getItem("token");
