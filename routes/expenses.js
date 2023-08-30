@@ -15,6 +15,7 @@ routes.get("/show-expenses", userAuthentication.authenticate ,admin.getExpenses)
 
 routes.delete("/delete-expenses/:id",userAuthentication.authenticate, admin.deleteExpense);
 
+// pagination for the expenses
 routes.get("/pagination", userAuthentication.authenticate, admin.showNumberExpense);
 
 

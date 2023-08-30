@@ -103,7 +103,7 @@ exports.deleteExpense = async(req,res,next)=>{
     }
 }
 
-
+// pagination for the expenses
 exports.showNumberExpense = async(req,res,next)=>{
     try{
         const{page,pagesize}=req.query;
