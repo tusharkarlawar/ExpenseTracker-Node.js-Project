@@ -1,4 +1,4 @@
-//here we add, get and deleted the expense
+//here we add, get and deleted the expense//
 const expense = require("../models/expense");
 const user = require("../models/user"); 
 const bcrypt = require('bcrypt');

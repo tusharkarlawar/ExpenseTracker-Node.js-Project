@@ -18,7 +18,7 @@ const authenticate = async(req, res, next)=>{
         return res.status(401).json({sucess: false});
     }
 }
-
+//exports
 module.exports = {
     authenticate
 }

@@ -11,4 +11,4 @@ routes.get('/resetpassword/:id', resetpasswordController.resetpassword)
 
 routes.post('/forgotpassword', resetpasswordController.forgotpassword)
 
-module.exports = routes;
+module.exports = routes;//

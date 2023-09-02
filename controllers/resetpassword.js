@@ -29,7 +29,7 @@ exports.forgotpassword = async (req, res) => {
             
         const apiKey=client.authentications['api-key']
         // apiKey.apiKey=process.env.SENDINBLUE_API_KEY
-        apiKey.apiKey='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'
+        apiKey.apiKey=process.env.SENDINBLUE_API_KEY;
 
         console.log("apiKey.apiKey",process.env.SENDINBLUE_API_KEY); 
         
@@ -126,3 +126,4 @@ exports.updatepassword = async(req, res) => {
     }
 
 }
+//

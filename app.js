@@ -41,7 +41,7 @@ app.use(compression());
 app.use(morgan('combined', {stream :accessLogStream }));
 
 // const privateKey=fs.readFileSync('server.key');
-// const certificate=fs.readFileSync('server.cert');
+// const certificate=fs.readFileSync('server.cert');//
 
 app.use(expenseDetails);
 app.use(userDetails);
